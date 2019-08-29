@@ -1,0 +1,39 @@
+{
+  "name": "office-pool",
+  "version": "1.0.0",
+  "description": "Game tracking application for office",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sshodges/office-pool.git"
+  },
+  "author": "Andrew G, Sagar K, Sam H",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sshodges/office-pool/issues"
+  },
+  "homepage": "https://github.com/sshodges/office-pool#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "config": "^3.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.6.11"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.1",
+    "nodemon": "^1.19.1"
+  }
+}
