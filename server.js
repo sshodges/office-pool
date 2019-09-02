@@ -1,6 +1,10 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const connectDB = require('./db');
+
+//Connect to DB
+connectDB();
 
 // Routes
 app.use('/api/users', require('./routes/users.js'));
