@@ -1,6 +1,7 @@
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 exports.userValidator = [
+  // First Name Validation
   check('firstName', 'First name is required')
     .not()
     .isEmpty()
@@ -12,22 +13,32 @@ exports.userValidator = [
     .withMessage('First name can only be a maximum of 30 characters')
     .isLength({ min: 2 })
     .withMessage('First name must be at least 2 characters'),
-
+  // Last Name Validation
   check('lastName', 'Last name is required')
     .not()
     .isEmpty(),
-
+  // Email Validation
   check('email', 'Please enter a valid email')
     .not()
     .isEmpty()
     .normalizeEmail()
     .isEmail(),
-
+  // Password Validation
   check('password')
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long')
     .matches(/\d/)
     .withMessage('Password must contain a number')
     .matches(/[A-Z]/)
-    .withMessage('Password must contain one uppercase character')
+    .withMessage('Password must contain one uppercase character'),
+
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (errorValidation) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
 ];
