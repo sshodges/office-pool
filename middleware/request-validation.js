@@ -1,6 +1,8 @@
 const { check, validationResult } = require('express-validator');
 
+
 exports.registerValidator = [
+
   // First Name Validation
   check('firstName', 'First name is required')
     .not()
@@ -31,6 +33,7 @@ exports.registerValidator = [
     .withMessage('Password must contain a number')
     .matches(/[A-Z]/)
     .withMessage('Password must contain one uppercase character'),
+
   // Check if validation passes, otherwise block endpoint
   function(req, res, next) {
     var errorValidation = validationResult(req);
