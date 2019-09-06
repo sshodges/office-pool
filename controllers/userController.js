@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const { jwtUtil } = require('../utils-module/index');
 const User = require('../models/User');
 
 exports.register = async (req, res) => {
@@ -9,46 +8,37 @@ exports.register = async (req, res) => {
   try {
     // Check if user email exists
     let user = await User.findOne({ email });
-
-    // Send error if user exists
+    
     if (user) {
       res.status(400).json({ errorMessage: 'User already exists' });
+    } else {
+      // Create User object
+      user = new User({
+        firstName,
+        lastName,
+        email,
+        password
+      });
+
+      // Generate salt for password
+      const salt = await bcrypt.genSalt(10);
+
+      // Hash password
+      user.password = await bcrypt.hash(password, salt);
+
+      // Save uers
+      await user.save();
+
+      // Send back token with user id
+      await jwtUtil
+        .createToken(user)
+        .then(token => {
+          res.json({ token });
+        })
+        .catch(error => {
+          res.status(500).json({ error });
+        });
     }
-
-    // Create User object
-    user = new User({
-      firstName,
-      lastName,
-      email,
-      password
-    });
-
-    // Generate salt for password
-    const salt = await bcrypt.genSalt(10);
-
-    // Hash password
-    user.password = await bcrypt.hash(password, salt);
-
-    // Save uers
-    await user.save();
-
-    // Send back token with user id
-    const tokenPayload = {
-      user: {
-        id: user.id
-      }
-    };
-
-    //Creat JWT Token
-    jwt.sign(
-      tokenPayload,
-      process.env.jwtSecret,
-      { expiresIn: 360000 }, // Token expiry time, We can change this later
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
   } catch (error) {
     console.error(error);
     res.status(500).json({ errorMessage: 'Server Error' });
