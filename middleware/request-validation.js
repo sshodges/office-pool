@@ -1,8 +1,6 @@
 const { check, validationResult } = require('express-validator');
 
-
 exports.registerValidator = [
-
   // First Name Validation
   check('firstName', 'First name is required')
     .not()

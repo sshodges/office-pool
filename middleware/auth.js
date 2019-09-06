@@ -1,16 +1,16 @@
-const jwt = require("jsonwebtoken");
-const cryptojs = require("crypto-js");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+const cryptojs = require('crypto-js');
+require('dotenv').config();
 
 module.exports = (req, res, next) => {
   // Get token from header
-  const token = req.header("auth-token");
+  const token = req.header('auth-token');
 
   // Return error if request not sent with token
   if (!token) {
     res
       .status(401)
-      .json({ errorMessage: "No authenitcation token, access denied" });
+      .json({ errorMessage: 'No authenitcation token, access denied' });
   }
 
   try {

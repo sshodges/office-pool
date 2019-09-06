@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt");
-const { jwtUtil } = require("../utils-module/index");
-const User = require("../models/User");
+const bcrypt = require('bcrypt');
+const { jwtUtil } = require('../utils-module/index');
+const User = require('../models/User');
 
 exports.register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -10,7 +10,7 @@ exports.register = async (req, res) => {
     let user = await User.findOne({ email });
 
     if (user) {
-      res.status(400).json({ errorMessage: "User already exists" });
+      res.status(400).json({ errorMessage: 'User already exists' });
     } else {
       // Create User object
       user = new User({
@@ -36,6 +36,6 @@ exports.register = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ errorMessage: "Server Error" });
+    res.status(500).json({ errorMessage: 'Server Error' });
   }
 };

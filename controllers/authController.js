@@ -1,11 +1,11 @@
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const { jwtUtil } = require("../utils-module/index");
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const { jwtUtil } = require('../utils-module/index');
 
 exports.getUser = async (req, res) => {
   try {
     // Get user id created by Auth middleware (not completed yet) and find user in database
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id).select('-password');
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
     const isMatched = await bcrypt.compare(password, user.password);
 
     if (!user || !isMatched) {
-      res.status(400).json({ errorMessage: "Invalid Credentils" });
+      res.status(400).json({ errorMessage: 'Invalid Credentils' });
     } else {
       await jwtUtil.createToken(user).then(token => {
         res.json({ token });
@@ -29,6 +29,6 @@ exports.login = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ errorMessage: "Server Error" });
+    res.status(500).json({ errorMessage: 'Server Error' });
   }
 };

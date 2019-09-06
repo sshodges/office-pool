@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-const cryptojs = require("crypto-js");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+const cryptojs = require('crypto-js');
+require('dotenv').config();
 
 exports.createToken = function(user) {
   return new Promise((resolve, reject) => {
