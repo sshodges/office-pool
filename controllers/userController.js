@@ -8,7 +8,7 @@ exports.register = async (req, res) => {
   try {
     // Check if user email exists
     let user = await User.findOne({ email });
-    
+
     if (user) {
       res.status(400).json({ errorMessage: 'User already exists' });
     } else {
@@ -30,14 +30,9 @@ exports.register = async (req, res) => {
       await user.save();
 
       // Send back token with user id
-      await jwtUtil
-        .createToken(user)
-        .then(token => {
-          res.json({ token });
-        })
-        .catch(error => {
-          res.status(500).json({ error });
-        });
+      await jwtUtil.createToken(user).then(token => {
+        res.json({ token });
+      });
     }
   } catch (error) {
     console.error(error);
