@@ -23,14 +23,9 @@ exports.login = async (req, res) => {
     if (!user || !isMatched) {
       res.status(400).json({ errorMessage: 'Invalid Credentils' });
     } else {
-      await jwtUtil
-        .createToken(user)
-        .then(token => {
-          res.json({ token });
-        })
-        .catch(error => {
-          res.status(500).json({ error });
-        });
+      await jwtUtil.createToken(user).then(token => {
+        res.json({ token });
+      });
     }
   } catch (error) {
     console.error(error);
