@@ -1,14 +1,12 @@
 const express = require('express');
 const path = require('path');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const connectDB = require('./db');
 const expressSanitizer = require('express-sanitizer');
 const helmet = require('helmet');
-const csurf = require('csurf');
 const session = require('express-session');
 
 const app = express();
-app.use(csrf({ cookie: true, value: req => req.cookies.csrfToken }));
 
 app.use(
   session({
@@ -50,7 +48,7 @@ app.use(bodyParser.json());
 // Can be used to sanitize outputs incase malicious code stored in database
 app.use(expressSanitizer());
 
-//Connect to DB
+// Connect to DB
 connectDB();
 
 // Routes
