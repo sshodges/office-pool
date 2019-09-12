@@ -16,11 +16,19 @@ exports.userValidator = [
   // Last Name Validation
   check('lastName', 'Last name is required')
     .not()
-    .isEmpty(),
+    .isEmpty()
+    .isString()
+    .withMessage('Last name must be a string')
+    .trim()
+    .escape()
+    .isLength({ max: 30 })
+    .withMessage('Last name can only be a maximum of 30 characters'),
   // Email Validation
   check('email', 'Please enter a valid email')
     .not()
     .isEmpty()
+    .trim()
+    .escape()
     .normalizeEmail()
     .isEmail(),
   // Password Validation
