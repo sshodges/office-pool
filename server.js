@@ -37,7 +37,7 @@ app.use(
       styleSrc: ["'self'", 'fonts.googleapis.com'],
       fontSrc: ["'self'", 'fonts.gstatic.com', 'data:'],
       scriptSrc: ["'self'", 'code.jquery.com'],
-      // Send data on any attack to the below endpoint (not coded yet)
+      // Send report data to the below endpoint (not coded yet)
       reportUri: '/api/securityreport'
     }
   })
