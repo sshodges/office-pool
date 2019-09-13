@@ -9,7 +9,13 @@ const TournamentSchema = mongoose.Schema({
     type: String,
     enum: ['Pool', 'Ping Pong'],
     required: true
-  }
+  },
+  user: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    }
+  ]
 });
 
 module.exports = mongoose.model('tournament', TournamentSchema);
