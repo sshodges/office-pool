@@ -6,6 +6,7 @@ const mongoConn = mongoose.connection;
 // Login Rate Limiter
 
 // Create login rate limiter
+// @desc: 10 tries in 5 minutes, blocks IP for 10 minutes
 const Login = new RateLimiterMongo({
   storeClient: mongoConn,
   points: 10,
