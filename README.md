@@ -24,3 +24,7 @@ Run Front-end Only
 ```shell
 $ npm run client
 ```
+## Mongo DB Login Credentials
+
+username: samuel.hodges@4mation.com.au
+password: ReactLearners
