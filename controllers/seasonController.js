@@ -1,6 +1,19 @@
-const bcrypt = require('bcrypt');
-const { jwtUtil } = require('../utils-module/index');
 const Season = require('../models/Season');
+
+exports.getAllSeasons = async (req, res) => {
+
+  try {
+
+    let seasons = await Season.find();
+
+    res.status(200).json(seasons);    
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: 'Server Error' });
+  }
+};
+
 
 exports.addNewSeason = async (req, res) => {
 
@@ -8,12 +21,11 @@ exports.addNewSeason = async (req, res) => {
 
   try {
 
-    if (isEmpty(tournamentId) || isEmpty(name) || isEmpty(startDate) || isEmpty(endDate)) {
+    if (tournamentId == null || name == null || startDate == null || endDate == null) {
       res.status(400).json({ errorMessage: 'Field(s) required is empty.' });
       return;
     }
 
-    // Create Season object
     season = new Season({
       tournamentId,
       name,
@@ -21,8 +33,11 @@ exports.addNewSeason = async (req, res) => {
       endDate
     });
 
-    // Save season
     await season.save();
+
+    res.status(201).json({
+      message: 'New Season added successfully'
+    });
     
   } catch (error) {
     console.error(error);
