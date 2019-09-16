@@ -5,7 +5,7 @@ const seasonController = require('../controllers/seasonController');
 // @route   GET api/seasons
 // @desc    Get all seasons of a tournament
 // @access  Public
-router.get('/', seasonController.getAllSeasons);
+router.get('/tournamentId/:tournamentId', seasonController.getSeasonsByTournamentId);
 
 // @route   POST api/seasons
 // @desc    Add new season

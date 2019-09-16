@@ -1,10 +1,10 @@
 const Season = require('../models/Season');
 
-exports.getAllSeasons = async (req, res) => {
+exports.getSeasonsByTournamentId = async (req, res) => {
 
   try {
 
-    let seasons = await Season.find();
+    let seasons = await Season.find({tournamentId: req.params.tournamentId});
 
     res.status(200).json(seasons);    
 
