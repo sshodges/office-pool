@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const SeasonSchema = mongoose.Schema({
   tournamentId: {
-    type: String, //TODO change this
+    type: String, //TODO change this to Tournament
     required: true
   },
   name: {
