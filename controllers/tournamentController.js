@@ -23,7 +23,7 @@ exports.getTournaments = async (req, res) => {
 exports.getTournament = async (req, res) => {
   try {
     const tournament = await Tournament.findById(req.params.tournamentId)
-      .populate('user', 'firstName', 'lastName')
+      .populate('user', 'firstName lastName')
       .select('-__v');
 
     if (!tournament)
@@ -36,7 +36,25 @@ exports.getTournament = async (req, res) => {
     err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Country Record not found with id ' + req.params.tournamentId
+          message:
+            'Tournament Record not found with id ' + req.params.tournamentId
+        });
+      }
+    };
+  }
+};
+
+exports.getTournamentByUser = async (req, res) => {
+  try {
+    const tournaments = await Tournament.find({ user: req.params.user }).select(
+      '-__v'
+    );
+    res.send(tournaments);
+  } catch {
+    err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'User not found with id ' + req.params.tournamentId
         });
       }
     };
@@ -44,7 +62,6 @@ exports.getTournament = async (req, res) => {
 };
 
 exports.addTournament = async (req, res) => {
-  console.log(req.body.user);
   const { tournamentName, tournamentType, user } = req.body;
   try {
     const tournament = new Tournament({

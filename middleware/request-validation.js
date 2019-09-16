@@ -1,4 +1,5 @@
 const { check, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 exports.registerValidator = [
   // First Name Validation
@@ -64,3 +65,33 @@ exports.loginValidator = [
     next();
   }
 ];
+
+exports.tournamentValidator = [
+  check('tournamentName', 'Please enter a valid tournament name')
+    .not()
+    .isEmpty()
+    .isLength({ min: 5 })
+    .withMessage('Tournament Name must be at least 5 characters long'),
+  check('tournamentType')
+    .contains('Pool', 'Ping Pong')
+    .withMessage('Tournament type can only be Pool or Ping-Pong'),
+  check('user').isMongoId(),
+
+  // Check if validation passes, otherwise block endpoint
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (!errorValidation.isEmpty()) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
+];
+
+// to verify the the object id sent is valid
+exports.objectIdValidate = function(req, res, next) {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id))
+    return res.status(404).send('ObjectId provided is not valid ');
+  next();
+};
