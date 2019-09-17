@@ -7,11 +7,7 @@ const {
 } = require('../middleware/request-validation');
 
 router.get('/', tournamentController.getTournaments);
-router.get(
-  '/:tournamentId',
-  objectIdValidate,
-  tournamentController.getTournament
-);
+router.get('/:tournamentId', tournamentController.getTournament);
 router.get('/usertournament/:user', tournamentController.getTournamentByUser);
 router.post('/', tournamentValidator, tournamentController.addTournament);
 
