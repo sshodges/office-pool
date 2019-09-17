@@ -10,15 +10,13 @@ exports.getTournaments = async (req, res) => {
     res.status(200).json(tournaments);
   } catch {
     err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
+      console.error(error);
+      res.status(500).json({ errorMessage: 'Server Error' });
     };
   }
 };
 
-//get a specifica tournament
+//get a specific tournament
 
 exports.getTournament = async (req, res) => {
   try {
@@ -34,12 +32,8 @@ exports.getTournament = async (req, res) => {
     res.send(tournament);
   } catch {
     err => {
-      if (err.kind === 'ObjectId') {
-        return res.status(404).send({
-          message:
-            'Tournament Record not found with id ' + req.params.tournamentId
-        });
-      }
+      console.error(error);
+      res.status(500).json({ errorMessage: 'Server Error' });
     };
   }
 };
@@ -52,11 +46,8 @@ exports.getTournamentByUser = async (req, res) => {
     res.send(tournaments);
   } catch {
     err => {
-      if (err.kind === 'ObjectId') {
-        return res.status(404).send({
-          message: 'User not found with id ' + req.params.tournamentId
-        });
-      }
+      console.error(error);
+      res.status(500).json({ errorMessage: 'Server Error' });
     };
   }
 };
@@ -78,9 +69,8 @@ exports.addTournament = async (req, res) => {
     });
   } catch {
     err => {
-      res.status(500).json({
-        error: err
-      });
+      console.error(error);
+      res.status(500).json({ errorMessage: 'Server Error' });
     };
   }
 };
