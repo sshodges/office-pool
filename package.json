@@ -10,7 +10,8 @@
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
+    "cypress": "^3.4.1",
     "nodemon": "^1.19.1"
   }
 }
