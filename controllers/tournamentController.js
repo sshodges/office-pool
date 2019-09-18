@@ -3,10 +3,9 @@ const Tournament = require('../models/Tournament');
 // get all the tournaments
 exports.getTournaments = async (req, res) => {
   try {
-    const tournaments = await Tournament.find({}).populate(
-      'user',
-      'firstName lastName'
-    );
+    const tournaments = await Tournament.find({})
+      .populate('user', '-_id firstName lastName')
+      .select('-_id -__v');
     res.status(200).json(tournaments);
   } catch {
     err => {
@@ -21,8 +20,8 @@ exports.getTournaments = async (req, res) => {
 exports.getTournament = async (req, res) => {
   try {
     const tournament = await Tournament.findById(req.params.tournamentId)
-      .populate('user', 'firstName lastName')
-      .select('-__v');
+      .populate('user', '_id firstName lastName')
+      .select('-__v -_id');
 
     if (!tournament)
       return res
