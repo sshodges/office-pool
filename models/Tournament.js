@@ -7,7 +7,7 @@ const TournamentSchema = mongoose.Schema({
   },
   tournamentType: {
     type: String,
-    enum: ['Pool', 'Ping Pong'],
+    enum: ['pool', 'ping-pong'],
     required: true
   },
   user: [

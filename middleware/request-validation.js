@@ -71,9 +71,11 @@ exports.tournamentValidator = [
     .not()
     .isEmpty()
     .isLength({ min: 5 })
-    .withMessage('Tournament Name must be at least 5 characters long'),
+    .withMessage('Tournament Name must be at least 5 characters long')
+    .trim()
+    .escape(),
   check('tournamentType')
-    .contains('Pool', 'Ping Pong')
+    .contains('pool', 'ping-pong')
     .withMessage('Tournament type can only be Pool or Ping-Pong'),
   check('user').isMongoId(),
 
