@@ -8,7 +8,7 @@ exports.getTournaments = async (req, res) => {
       .select('-_id -__v');
     res.status(200).json(tournaments);
   } catch {
-    err => {
+    error => {
       console.error(error);
       res.status(500).json({ errorMessage: 'Server Error' });
     };
@@ -30,7 +30,7 @@ exports.getTournament = async (req, res) => {
 
     res.send(tournament);
   } catch {
-    err => {
+    error => {
       console.error(error);
       res.status(500).json({ errorMessage: 'Server Error' });
     };
@@ -39,12 +39,12 @@ exports.getTournament = async (req, res) => {
 
 exports.getTournamentByUser = async (req, res) => {
   try {
-    const tournaments = await Tournament.find({ user: req.params.user }).select(
-      '-__v'
-    );
-    res.send(tournaments);
+    const tournaments = await Tournament.find({
+      user: req.user.id
+    }).select('-__v');
+    res.status(200).json(tournaments);
   } catch {
-    err => {
+    error => {
       console.error(error);
       res.status(500).json({ errorMessage: 'Server Error' });
     };
@@ -67,7 +67,7 @@ exports.addTournament = async (req, res) => {
       savedTournament
     });
   } catch {
-    err => {
+    error => {
       console.error(error);
       res.status(500).json({ errorMessage: 'Server Error' });
     };
