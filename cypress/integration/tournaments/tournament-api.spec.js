@@ -3,6 +3,17 @@
 import { body } from 'express-validator';
 
 describe('Tournaments API', () => {
+  let token;
+
+  beforeEach(function() {
+    cy.request('POST', '/api/auth', {
+      email: Cypress.env('email'),
+      password: Cypress.env('password')
+    }).then(res => {
+      token = res.body.token.token;
+    });
+  });
+
   const initialItems = [
     {
       tournamentName: '2usertournament',
@@ -17,14 +28,21 @@ describe('Tournaments API', () => {
   ];
 
   it('returns JSON', () => {
-    cy.request('/api/tournaments')
+    console.log(token);
+    cy.request({
+      url: '/api/tournaments',
+      headers: { 'auth-token': token }
+    })
       .its('headers')
       .its('content-type')
       .should('include', 'application/json');
   });
 
   it('returns JSON', () => {
-    cy.request('/api/tournaments')
+    cy.request({
+      url: '/api/tournaments',
+      headers: { 'auth-token': token }
+    })
       .its('body')
       .should('deep.eq', initialItems);
   });
