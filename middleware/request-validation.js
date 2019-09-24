@@ -1,4 +1,5 @@
 const { check, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 exports.registerValidator = [
   // First Name Validation
@@ -61,6 +62,31 @@ exports.loginValidator = [
     .isEmail(),
   // Password Validation
   check('password').exists(),
+  // Check if validation passes, otherwise block endpoint
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (!errorValidation.isEmpty()) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
+];
+
+exports.tournamentValidator = [
+  check('tournamentName', 'Please enter a valid tournament name')
+    .not()
+    .isEmpty()
+    .isLength({ min: 5 })
+    .withMessage('Tournament Name must be at least 5 characters long')
+    .trim()
+    .escape(),
+  check('tournamentType')
+    .contains('pool', 'ping-pong')
+    .withMessage('Tournament type can only be Pool or Ping-Pong'),
+  check('user').isMongoId(),
+
   // Check if validation passes, otherwise block endpoint
   function(req, res, next) {
     var errorValidation = validationResult(req);
