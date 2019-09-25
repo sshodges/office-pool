@@ -98,3 +98,35 @@ exports.tournamentValidator = [
     next();
   }
 ];
+
+exports.seasonValidator = [
+  check('tournamentId').isMongoId(),
+  check('name', 'Please enter a valid season name')
+    .not()
+    .isEmpty()
+    .isLength({ min: 5 })
+    .withMessage('Season Name must be at least 5 characters long')
+    .trim()
+    .escape(),
+  check('startDate', 'Please enter a valid starting date')
+    .not()
+    .isEmpty()
+    .isISO8601()
+    .withMessage('Tournament starting date must be valid'),
+  check('endDate', 'Please enter a valid ending date')
+    .not()
+    .isEmpty()
+    .isISO8601()
+    .withMessage('Tournament ending date must be valid'),
+
+  // Check if validation passes, otherwise block endpoint
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (!errorValidation.isEmpty()) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
+];

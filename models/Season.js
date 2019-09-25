@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const SeasonSchema = mongoose.Schema({
-  tournamentId: {
-    type: String, //TODO change this to Tournament
-    required: true
+  tournament: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'tournament'
   },
   name: {
     type: String,

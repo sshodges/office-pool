@@ -1,10 +1,10 @@
 const Season = require('../models/Season');
+var mongoose = require('mongoose');
 
 exports.getSeasonsByTournamentId = async (req, res) => {
 
   try {
-
-    let seasons = await Season.find({tournamentId: req.params.tournamentId});
+    let seasons = await Season.find({tournament: req.params.tournamentId});
 
     res.status(200).json(seasons);    
 
@@ -19,15 +19,11 @@ exports.addNewSeason = async (req, res) => {
 
   const { tournamentId, name, startDate, endDate } = req.body;
 
+  tournament = mongoose.Types.ObjectId(tournamentId);
+
   try {
-
-    if (tournamentId == null || name == null || startDate == null || endDate == null) {
-      res.status(400).json({ errorMessage: 'Field(s) required is empty.' });
-      return;
-    }
-
     season = new Season({
-      tournamentId,
+      tournament,
       name,
       startDate,
       endDate
