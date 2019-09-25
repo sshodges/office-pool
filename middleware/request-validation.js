@@ -1,4 +1,5 @@
 const { check, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 exports.registerValidator = [
   // First Name Validation
@@ -16,11 +17,19 @@ exports.registerValidator = [
   // Last Name Validation
   check('lastName', 'Last name is required')
     .not()
-    .isEmpty(),
+    .isEmpty()
+    .isString()
+    .withMessage('Last name must be a string')
+    .trim()
+    .escape()
+    .isLength({ max: 30 })
+    .withMessage('Last name can only be a maximum of 30 characters'),
   // Email Validation
   check('email', 'Please enter a valid email')
     .not()
     .isEmpty()
+    .trim()
+    .escape()
     .normalizeEmail()
     .isEmail(),
   // Password Validation
@@ -53,6 +62,31 @@ exports.loginValidator = [
     .isEmail(),
   // Password Validation
   check('password').exists(),
+  // Check if validation passes, otherwise block endpoint
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (!errorValidation.isEmpty()) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
+];
+
+exports.tournamentValidator = [
+  check('tournamentName', 'Please enter a valid tournament name')
+    .not()
+    .isEmpty()
+    .isLength({ min: 5 })
+    .withMessage('Tournament Name must be at least 5 characters long')
+    .trim()
+    .escape(),
+  check('tournamentType')
+    .contains('pool', 'ping-pong')
+    .withMessage('Tournament type can only be Pool or Ping-Pong'),
+  check('user').isMongoId(),
+
   // Check if validation passes, otherwise block endpoint
   function(req, res, next) {
     var errorValidation = validationResult(req);

@@ -1,13 +1,54 @@
 const express = require('express');
 const path = require('path');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const connectDB = require('./db');
+const expressSanitizer = require('express-sanitizer');
+const helmet = require('helmet');
+const session = require('express-session');
 
 const app = express();
 
+app.use(
+  session({
+    secret: process.env.sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      // Only allow cookies to be sent over HTTPS in production
+      secure: app.get('env') === 'production' ? true : false,
+      // Cookies only accessed through HTTPS calls and not scripts
+      httpOnly: true,
+      // Only allow cookies to be sent to the below domains
+      domain: app.get('env') === 'production' ? 'office-pool.com' : 'localhost',
+      // Max age of cookies
+      maxAge: 72000000,
+      // Similar to domain, only allow cookies from same site
+      sameSite: true
+    },
+    // Default name is connect.sid, betting to change it away from default
+    name: 'officePoolSecurity'
+  })
+);
+// Only allow scripts, styles and font be run from whitelisted domains
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", 'fonts.googleapis.com'],
+      fontSrc: ["'self'", 'fonts.gstatic.com', 'data:'],
+      scriptSrc: ["'self'", 'code.jquery.com'],
+      // Send report data to the below endpoint (not coded yet)
+      reportUri: '/api/securityreport'
+    }
+  })
+);
+// Blocks our site from being used in iframes on malicious sites
+app.use(helmet.frameguard({ action: 'deny' }));
 app.use(bodyParser.json());
+// Can be used to sanitize outputs incase malicious code stored in database
+app.use(expressSanitizer());
 
-//Connect to DB
+// Connect to DB
 connectDB();
 
 // Routes
