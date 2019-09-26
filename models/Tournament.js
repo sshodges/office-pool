@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const FKHelper = require('../utils-module/lib/foreign-key-validator');
 
 const TournamentSchema = mongoose.Schema({
   tournamentName: {
@@ -13,7 +14,13 @@ const TournamentSchema = mongoose.Schema({
   user: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user'
+      ref: 'user',
+      validate: {
+        validator: function(v) {
+          return FKHelper(mongoose.model('user'), v);
+        },
+        message: `Tag doesn't exist`
+      }
     }
   ]
 });

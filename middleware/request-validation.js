@@ -85,7 +85,7 @@ exports.tournamentValidator = [
   check('tournamentType')
     .contains('pool', 'ping-pong')
     .withMessage('Tournament type can only be Pool or Ping-Pong'),
-  check('user').isMongoId(),
+  // check('user').isMongoId(),
 
   // Check if validation passes, otherwise block endpoint
   function(req, res, next) {
