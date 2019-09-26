@@ -10,7 +10,8 @@
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -25,18 +26,20 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
-    "config": "^3.2.2",
-    "cors": "^2.8.5",
     "crypto-js": "^3.1.9-1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
+    "express-sanitizer": "^1.0.5",
+    "express-session": "^1.16.2",
     "express-validator": "^6.1.1",
+    "helmet": "^3.21.0",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
-    "mongoose": "^5.6.11"
+    "mongoose": "^5.6.11",
+    "rate-limiter-flexible": "^1.1.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.1",
+    "cypress": "^3.4.1",
     "nodemon": "^1.19.1"
   }
 }
