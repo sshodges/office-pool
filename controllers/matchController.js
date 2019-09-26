@@ -1,4 +1,5 @@
 const Match = require('../models/Match');
+var mongoose = require('mongoose');
 
 exports.getMatchesBySeasonId = async (req, res) => {
 
@@ -21,13 +22,10 @@ exports.addNewMatch = async (req, res) => {
 
   try {
 
-    if (seasonId == null || winner == null || loser == null) {
-      res.status(400).json({ errorMessage: 'Field(s) required is empty.' });
-      return;
-    }
+    season = mongoose.Types.ObjectId(seasonId);
 
     match = new Match({
-      seasonId,
+      season,
       winner,
       loser
     });

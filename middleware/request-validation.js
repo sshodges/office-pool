@@ -64,3 +64,22 @@ exports.loginValidator = [
     next();
   }
 ];
+
+
+
+exports.matchValidator = [
+    check('seasonId').isMongoId(),
+    check('winner').isMongoId(),
+    check('loser').isMongoId(),
+  
+    // Check if validation passes, otherwise block endpoint
+    function(req, res, next) {
+      var errorValidation = validationResult(req);
+      if (!errorValidation.isEmpty()) {
+        return res.status(400).json({
+          errorMessage: errorValidation
+        });
+      }
+      next();
+    }
+  ];

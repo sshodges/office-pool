@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 
 const MatchSchema = mongoose.Schema({
-  seasonId: {
-    type: String, //TODO change this to Season
-    required: true
-  },
+  season: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'season'
+  },
   winner: {
-    type: String, //TODO change this to User
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
   },
   loser: {
-    type: String, //TODO change this to User
-    default: Date.now
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
   },
 });
 
