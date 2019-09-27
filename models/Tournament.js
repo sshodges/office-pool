@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const FKHelper = require('../utils-module/lib/foreign-key-validator');
 
 const TournamentSchema = mongoose.Schema({
   tournamentName: {
