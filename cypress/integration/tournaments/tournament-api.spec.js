@@ -28,7 +28,6 @@ describe('Tournaments API', () => {
   ];
 
   it('returns JSON', () => {
-    console.log(token);
     cy.request({
       url: '/api/tournaments',
       headers: { 'auth-token': token }

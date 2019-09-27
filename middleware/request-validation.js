@@ -1,5 +1,6 @@
-const { check, validationResult } = require('express-validator');
+const { check, validationResult, body } = require('express-validator');
 const mongoose = require('mongoose');
+const { fkHelper } = require('../utils-module/index');
 
 exports.registerValidator = [
   // First Name Validation
@@ -85,7 +86,9 @@ exports.tournamentValidator = [
   check('tournamentType')
     .contains('pool', 'ping-pong')
     .withMessage('Tournament type can only be Pool or Ping-Pong'),
-  check('user').isMongoId(),
+  body('user').custom(v => {
+    return fkHelper(mongoose.model('user'), v);
+  }),
 
   // Check if validation passes, otherwise block endpoint
   function(req, res, next) {

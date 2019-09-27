@@ -61,7 +61,6 @@ exports.addTournament = async (req, res) => {
     });
     const savedTournament = await tournament.save();
     await savedTournament.populate('user', '-password').execPopulate();
-
     res.status(201).json({
       message: 'New Tournament Successfully added',
       savedTournament
