@@ -16,7 +16,7 @@ describe('Matches API', () => {
 
   it('returns JSON', () => {
     cy.request({
-      url: '/api/matches',
+      url: '/api/matches/seasonId/5d8d73e024ec4276b546e11d',
       headers: { 'auth-token': token }
     })
       .its('headers')

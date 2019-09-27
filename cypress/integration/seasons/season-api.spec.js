@@ -16,7 +16,7 @@ describe('Seasons API', () => {
 
   it('returns JSON', () => {
     cy.request({
-      url: '/api/seasons',
+      url: '/api/seasons/tournamentId/5d8ad6f2db579a6c1f2ff9b7',
       headers: { 'auth-token': token }
     })
       .its('headers')
