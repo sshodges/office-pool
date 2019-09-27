@@ -101,3 +101,60 @@ exports.tournamentValidator = [
     next();
   }
 ];
+
+exports.seasonValidator = [
+  check('name', 'Please enter a valid season name')
+    .not()
+    .isEmpty()
+    .isLength({ min: 5 })
+    .withMessage('Season Name must be at least 5 characters long')
+    .trim()
+    .escape(),
+  check('startDate', 'Please enter a valid starting date')
+    .not()
+    .isEmpty()
+    .isISO8601()
+    .withMessage('Tournament starting date must be valid'),
+  check('endDate', 'Please enter a valid ending date')
+    .not()
+    .isEmpty()
+    .isISO8601()
+    .withMessage('Tournament ending date must be valid'),
+  body('tournamentId').custom(v => {
+    return fkHelper(mongoose.model('tournament'), v);
+  }),
+
+  // Check if validation passes, otherwise block endpoint
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (!errorValidation.isEmpty()) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
+];
+
+exports.matchValidator = [
+  body('seasonId').custom(v => {
+    return fkHelper(mongoose.model('season'), v);
+  }),
+  body('winner').custom(v => {
+    return fkHelper(mongoose.model('user'), v);
+  }),
+  body('loser').custom(v => {
+    return fkHelper(mongoose.model('user'), v);
+  }),
+
+  // Check if validation passes, otherwise block endpoint
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (!errorValidation.isEmpty()) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
+];
