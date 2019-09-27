@@ -103,7 +103,6 @@ exports.tournamentValidator = [
 ];
 
 exports.seasonValidator = [
-  check('tournamentId').isMongoId(),
   check('name', 'Please enter a valid season name')
     .not()
     .isEmpty()
@@ -121,6 +120,9 @@ exports.seasonValidator = [
     .isEmpty()
     .isISO8601()
     .withMessage('Tournament ending date must be valid'),
+  body('tournamentId').custom(v => {
+    return fkHelper(mongoose.model('tournament'), v);
+  }),
 
   // Check if validation passes, otherwise block endpoint
   function(req, res, next) {
@@ -135,18 +137,24 @@ exports.seasonValidator = [
 ];
 
 exports.matchValidator = [
-    check('seasonId').isMongoId(),
-    check('winner').isMongoId(),
-    check('loser').isMongoId(),
-  
-    // Check if validation passes, otherwise block endpoint
-    function(req, res, next) {
-      var errorValidation = validationResult(req);
-      if (!errorValidation.isEmpty()) {
-        return res.status(400).json({
-          errorMessage: errorValidation
-        });
-      }
-      next();
-    }
-  ];
+  body('seasonId').custom(v => {
+    return fkHelper(mongoose.model('season'), v);
+  }),
+  body('winner').custom(v => {
+    return fkHelper(mongoose.model('user'), v);
+  }),
+  body('loser').custom(v => {
+    return fkHelper(mongoose.model('user'), v);
+  }),
+
+  // Check if validation passes, otherwise block endpoint
+  function(req, res, next) {
+    var errorValidation = validationResult(req);
+    if (!errorValidation.isEmpty()) {
+      return res.status(400).json({
+        errorMessage: errorValidation
+      });
+    }
+    next();
+  }
+];

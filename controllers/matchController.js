@@ -5,7 +5,7 @@ exports.getMatchesBySeasonId = async (req, res) => {
 
   try {
 
-    let matches = await Match.find({seasonId: req.params.seasonId});
+    let matches = await Match.find({season: req.params.seasonId});
 
     res.status(200).json(matches);    
 
