@@ -1,5 +1,4 @@
 module.exports = (model, id) => {
-  console.log(model);
   return model.findOne({ _id: id }).then(result => {
     if (result) {
       return Promise.resolve('true');
