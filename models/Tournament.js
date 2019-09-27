@@ -14,13 +14,7 @@ const TournamentSchema = mongoose.Schema({
   user: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
-      validate: {
-        validator: function(v) {
-          return FKHelper(mongoose.model('user'), v);
-        },
-        message: `Tag doesn't exist`
-      }
+      ref: 'user'
     }
   ]
 });

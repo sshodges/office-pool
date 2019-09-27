@@ -1,13 +1,13 @@
 module.exports = (model, id) => {
   console.log(model);
-  return new Promise((resolve, reject) => {
-    model.findOne({ _id: id }, (err, result) => {
-      if (result) {
-        return resolve(true);
-      } else if (err) {
-        console.log('in fale');
-        return reject(new Error('Oops!'));
-      }
-    });
+  return model.findOne({ _id: id }).then(result => {
+    if (result) {
+      return Promise.resolve('true');
+    } else
+      return Promise.reject(
+        new Error(
+          `FK Constraint 'checkObjectsExists' for '${id.toString()}' failed`
+        )
+      );
   });
 };
