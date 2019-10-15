@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import TournamentItem from './TounamentItem';
+import Spinner from '../layout/Spinner';
 import { getTournaments } from '../../actions/tournamentAction';
 
 const Tournaments = ({ tournament: { tournaments }, getTournaments }) => {
@@ -10,10 +11,13 @@ const Tournaments = ({ tournament: { tournaments }, getTournaments }) => {
 
   return (
     <div className='row'>
-      {tournaments &&
+      {tournaments ? (
         tournaments.map(tournament => (
           <TournamentItem tournament={tournament} />
-        ))}
+        ))
+      ) : (
+        <Spinner />
+      )}
     </div>
   );
 };
