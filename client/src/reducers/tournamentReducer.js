@@ -4,7 +4,8 @@ import {
   LOGS_ERROR,
   ADD_TOURNAMENT,
   UPDATE_TOURNAMENT,
-  DELETE_TOURNAMENT
+  DELETE_TOURNAMENT,
+  GET_TOURNAMENTS_BY_USER
 } from '../actions/types';
 
 const initialState = {
@@ -24,6 +25,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload
+      };
+    case GET_TOURNAMENTS:
+      return {
+        ...state,
+        tournaments: action.payload,
+        loading: false
       };
     default:
       return state;

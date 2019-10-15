@@ -5,8 +5,19 @@ const connectDB = require('./db');
 const expressSanitizer = require('express-sanitizer');
 const helmet = require('helmet');
 const session = require('express-session');
+const cors = require('cors');
+
+//Cors Settings
+var corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST, DELETE, OPTIONS',
+  preflightContinue: true,
+  optionsSuccessStatus: 204,
+  exposedHeaders: 'Auth'
+};
 
 const app = express();
+app.use(cors(corsOptions));
 
 app.use(
   session({
@@ -59,7 +70,7 @@ app.use('/api/seasons', require('./routes/seasons'));
 app.use('/api/matches', require('./routes/matches'));
 
 // Serve static assets in production - USED FOR HEROKU DEPLOYMENT
-if ((process.env.NODE_ENV = 'production')) {
+if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
 
