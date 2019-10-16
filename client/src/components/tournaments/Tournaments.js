@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import TournamentItem from './TounamentItem';
+import TournamentItem from './TournamentItem';
 import Spinner from '../layout/Spinner';
 import { getTournaments } from '../../actions/tournamentAction';
 

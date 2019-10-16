@@ -1,4 +1,9 @@
-import { GET_TOURNAMENTS, SET_LOADING, LOGS_ERROR } from './types';
+import {
+  GET_TOURNAMENTS,
+  SET_LOADING,
+  LOGS_ERROR,
+  SET_CURRENT_TOURNAMENT
+} from './types';
 import axios from 'axios';
 
 // Get techs
@@ -8,7 +13,7 @@ export const getTournaments = () => async dispatch => {
     let config = {
       headers: {
         'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE4NVI0L3lSSGNjTERzcU9IN2hpUkRTb01tRXY2Z1FQS3RnQ2x1T0Q4ek9OOXYxUWJwVFA2c1lxaUdTMFJuTmJoSWpNYlhHbXl5RmZRPT0iLCJpYXQiOjE1NzExMTYwMTAsImV4cCI6MTU3MTIwMjQxMH0.GfyxaD8t3m55PKn4pAfN6bOSA4DR607y2v6kfQ7k3HE'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5Y3BwVWVTTkcxNlFncklhRWhvbFFKNDNWSjM0ampMd01UUUg5dmM4ZDNOZmVWdSt1KzRjQjZLWVB1a21TTjV2cjVrVDEyQkk4d1JBPT0iLCJpYXQiOjE1NzEyMDI3MjAsImV4cCI6MTU3MTI4OTEyMH0.Ygoeh3J4Rppw-ErUNa2xlz9UpErz1148mdJYmqtvsPk'
       }
     };
 
@@ -18,7 +23,7 @@ export const getTournaments = () => async dispatch => {
     );
 
     const data = res.data;
-    console.log(data);
+
     dispatch({
       type: GET_TOURNAMENTS,
       payload: data
@@ -29,6 +34,14 @@ export const getTournaments = () => async dispatch => {
       payload: error
     });
   }
+};
+
+export const setCurrentTournament = tournament => dispatch => {
+  setLoading();
+  dispatch({
+    type: SET_CURRENT_TOURNAMENT,
+    payload: tournament
+  });
 };
 
 export const setLoading = () => dispatch => {

@@ -5,7 +5,7 @@ exports.getTournaments = async (req, res) => {
   try {
     const tournaments = await Tournament.find({})
       .populate('user', '-_id firstName lastName')
-      .select('-_id -__v');
+      .select('-__v');
     res.status(200).json(tournaments);
   } catch {
     error => {

@@ -1,5 +1,6 @@
 import {
   GET_TOURNAMENTS,
+  SET_CURRENT_TOURNAMENT,
   SET_LOADING,
   LOGS_ERROR,
   ADD_TOURNAMENT,
@@ -9,6 +10,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
+  currentTournament: null,
   tournaments: null,
   loading: false,
   error: null
@@ -30,6 +32,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tournaments: action.payload,
+        loading: false
+      };
+    case SET_CURRENT_TOURNAMENT:
+      return {
+        ...state,
+        currentTournament: action.payload,
         loading: false
       };
     default:
