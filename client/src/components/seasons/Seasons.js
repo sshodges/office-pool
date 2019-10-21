@@ -1,32 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import TournamentItem from './TournamentItem';
+import SeasonDetail from './SeasonDetail';
 import Spinner from '../layout/Spinner';
 import { getTournaments } from '../../actions/tournamentAction';
 
-const Tournaments = ({ tournament: { tournaments }, getTournaments }) => {
-  useEffect(() => {
-    getTournaments();
-  }, []);
-
+const Seasons = () => {
   return (
-    <div className='row'>
-      {tournaments ? (
-        tournaments.map(tournament => (
-          <TournamentItem tournament={tournament} />
-        ))
-      ) : (
-        <Spinner />
-      )}
+    <div className="row">
+      <SeasonDetail />
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-  tournament: state.tournament
-});
-
-export default connect(
-  mapStateToProps,
-  { getTournaments }
-)(Tournaments);
+export default Seasons;

@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 //Components
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/pages/Dashboard';
+import Seasons from './components/seasons/Seasons';
 
 const App = () => {
   useEffect(() => {
@@ -19,9 +20,10 @@ const App = () => {
       <Router>
         <Fragment>
           <Navbar />
-          <div className='container'>
+          <div className="container">
             <Switch>
-              <Route exact path='/' component={Dashboard} />
+              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/seasons" component={Seasons} />
             </Switch>
           </div>
         </Fragment>

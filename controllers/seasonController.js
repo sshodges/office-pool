@@ -2,22 +2,23 @@ const Season = require('../models/Season');
 var mongoose = require('mongoose');
 
 exports.getSeasonsByTournamentId = async (req, res) => {
-
   try {
-    let seasons = await Season.find({tournament: req.params.tournamentId});
+    let seasons = await Season.find({ tournament: req.params.tournamentId });
 
-    res.status(200).json(seasons);    
-
+    res.status(200).json(seasons);
   } catch (error) {
     console.error(error);
     res.status(500).json({ errorMessage: 'Server Error' });
   }
 };
 
-
 exports.addNewSeason = async (req, res) => {
-
   const { tournamentId, name, startDate, endDate } = req.body;
+
+  const filter = { tournament: tournamentId };
+  const update = { currentSeason: false };
+
+  await Season.updateMany(filter, update);
 
   tournament = mongoose.Types.ObjectId(tournamentId);
 
@@ -34,7 +35,6 @@ exports.addNewSeason = async (req, res) => {
     res.status(201).json({
       message: 'New Season added successfully'
     });
-    
   } catch (error) {
     console.error(error);
     res.status(500).json({ errorMessage: 'Server Error' });
