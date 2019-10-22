@@ -1,13 +1,15 @@
 import {
-  GET_TOURNAMENTS,
+  GET_SEASONS,
+  SET_CURRENT_SEASON,
   SET_LOADING,
   LOGS_ERROR,
-  SET_CURRENT_TOURNAMENT
+  ADD_SEASON,
+  UPDATE_SEASON
 } from './types';
 import axios from 'axios';
 
 // Get techs
-export const getTournaments = () => async dispatch => {
+export const getSeasons = tournamentId => async dispatch => {
   try {
     setLoading();
     let config = {
@@ -18,15 +20,22 @@ export const getTournaments = () => async dispatch => {
     };
 
     const res = await axios.get(
-      'http://localhost:5000/api/tournaments',
+      `http://localhost:5000/api/seasons/tournamentId/${tournamentId}`,
       config
     );
 
     const data = res.data;
+    const currentSeason = data.filter(season => season.currentSeason === true);
+    console.log(currentSeason);
 
     dispatch({
-      type: GET_TOURNAMENTS,
+      type: GET_SEASONS,
       payload: data
+    });
+
+    dispatch({
+      type: SET_CURRENT_SEASON,
+      payload: currentSeason
     });
   } catch (error) {
     dispatch({
@@ -36,11 +45,11 @@ export const getTournaments = () => async dispatch => {
   }
 };
 
-export const setCurrentTournament = tournament => dispatch => {
+export const setCurrentSeason = season => dispatch => {
   setLoading();
   dispatch({
-    type: SET_CURRENT_TOURNAMENT,
-    payload: tournament
+    type: SET_CURRENT_SEASON,
+    payload: season
   });
 };
 
