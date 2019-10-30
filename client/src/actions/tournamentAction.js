@@ -13,7 +13,7 @@ export const getTournaments = () => async dispatch => {
     let config = {
       headers: {
         'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDErNkdNTTVLLzlOSERrZkZySy9DV3dBQ3BoZ3JmemZaTnBMWDVDckpaeHh6Ymh1Z3l1dFY0YTYrTzhOYm9qVlA2alFtNDU2cTQrbVhRPT0iLCJpYXQiOjE1NzE3MjA4MzksImV4cCI6MTU3MTgwNzIzOX0.wJCt0xauc-J6VWuminj8kaAadmH8Uz_G_76kEvWfOCg'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5SEFPN3dyZVRiQTYxUGlxaUpyYzJ6UTg2L1JnN1JzOXlkM1AwL1ZROFdiSkxyN3RDWjhuWjJMNS84T2pBL29Dc1dTUGxsYWZuZXd3PT0iLCJpYXQiOjE1NzI0MTIxNzQsImV4cCI6MTU3MjQ5ODU3NH0.2V4SygLgFoxonB-SaaPQ-S708mVgHxVvyw6opN97k4M'
       }
     };
 
