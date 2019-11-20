@@ -7,7 +7,7 @@ import {
   UPDATE_TOURNAMENT,
   DELETE_TOURNAMENT,
   GET_TOURNAMENTS_BY_USER
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   currentTournament: null,
@@ -38,6 +38,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentTournament: action.payload,
+        loading: false
+      };
+    case ADD_TOURNAMENT:
+      return {
+        ...state,
+        tournaments: [...state.tournaments, action.payload],
         loading: false
       };
     default:

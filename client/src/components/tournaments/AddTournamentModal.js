@@ -1,71 +1,72 @@
-import React, { useState } from 'react';
-import M from 'materialize-css/dist/js/materialize.min.js';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import M from "materialize-css/dist/js/materialize.min.js";
+import { connect } from "react-redux";
+import { addTournament } from "../../actions/tournamentAction";
 
-const AddTournamentModal = ({}) => {
-  const [message, setMessage] = useState('');
-  const [attention, setAttention] = useState(false);
-  const [tech, setTech] = useState('');
+const AddTournamentModal = ({ addTournament }) => {
+  const [tournamentName, setTournamentName] = useState("");
+  const [tournamentType, setTournamentType] = useState("");
 
   const onSubmit = () => {
-    if (message === '' || tech === '') {
-      M.toast({ html: 'Please enter a message and tech', classes: 'red' });
+    if (tournamentName === "" || tournamentType === "") {
+      M.toast({
+        html: "Please enter a tournamentName and tournamentType",
+        classes: "red"
+      });
     } else {
-      const newLog = {
-        message,
-        attention,
-        tech,
-        date: new Date()
+      const newTournament = {
+        tournamentName,
+        tournamentType
       };
-      M.toast({ html: `log added by ${tech}`, classes: 'green' });
+      addTournament(newTournament);
+      M.toast({ html: `tournament successfully added`, classes: "green" });
       // Clear Fields
-      setMessage('');
-      setTech('');
-      setAttention(false);
+      setTournamentName("");
+      setTournamentType("");
     }
   };
 
   return (
-    <div id='add-tournament-modal' className='modal' style={modalStyle}>
-      <div className='modal-content'>
+    <div id="add-tournament-modal" className="modal" style={modalStyle}>
+      <div className="modal-content">
         <h4>Add Tournamment</h4>
         <br />
-        <div className='row'>
-          <div className='input-field'>
+        <div className="row">
+          <div className="input-field">
             <input
-              type='text'
-              name='message'
-              value={message}
-              onChange={e => setMessage(e.target.value)}
+              type="text"
+              name="tournamentname"
+              value={tournamentName}
+              onChange={e => setTournamentName(e.target.value)}
             />
-            <label htmlFor='message' className='active'>
+            <label htmlFor="tournamentname" className="active">
               Tournament Name
             </label>
           </div>
         </div>
 
-        <div className='row'>
-          <div className='input-field'>
+        <div className="row">
+          <div className="input-field">
             <select
-              name='tech'
-              value={tech}
-              className='browser-default'
-              onChange={e => setTech(e.target.value)}
+              name="tournamenttype"
+              value={tournamentType}
+              className="browser-default"
+              onChange={e => setTournamentType(e.target.value)}
             >
-              <option value='' disabled>
+              <option value="" disabled>
                 Select Type
               </option>
-              <option value='pool'>Pool</option>
-              <option value='ping-pong'>Ping Pong</option>
+              <option value="pool">Pool</option>
+              <option value="ping-pong">Ping Pong</option>
             </select>
           </div>
         </div>
       </div>
-      <div className='modal-footer'>
+      <div className="modal-footer">
         <a
-          href='#!'
+          href="#!"
           onClick={onSubmit}
-          className='modal-close waves-effect blue waves-light btn'
+          className="modal-close waves-effect blue waves-light btn"
         >
           Add
         </a>
@@ -75,8 +76,8 @@ const AddTournamentModal = ({}) => {
 };
 
 const modalStyle = {
-  width: '50%',
-  height: '75%'
+  width: "50%",
+  height: "75%"
 };
 
-export default connect(null, {})(AddTournamentModal);
+export default connect(null, { addTournament })(AddTournamentModal);

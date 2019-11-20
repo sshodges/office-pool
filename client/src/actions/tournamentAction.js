@@ -2,9 +2,10 @@ import {
   GET_TOURNAMENTS,
   SET_LOADING,
   LOGS_ERROR,
-  SET_CURRENT_TOURNAMENT
-} from './types';
-import axios from 'axios';
+  SET_CURRENT_TOURNAMENT,
+  ADD_TOURNAMENT
+} from "./types";
+import axios from "axios";
 
 // Get techs
 export const getTournaments = () => async dispatch => {
@@ -12,13 +13,13 @@ export const getTournaments = () => async dispatch => {
     setLoading();
     let config = {
       headers: {
-        'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5ZlpyRzF6VHNneXpHY09YQU11SXN0TzZiVGg2RGp0cEVYWnlLOCtWbSt6bVViUE5wVG04RW8vdm5PMGltNnczcGZXOTludW9TMTVnPT0iLCJpYXQiOjE1NzQwNTM1MDksImV4cCI6MTU3NDEzOTkwOX0.-vFyqzHHbNUx1jmlNCWQEu5vrnTC1j0fwtCs5LDpwqc'
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5VS9CQ2l4QjRidmlmeGljcFhlZWgzc1NYb09QblV6ZmJQM3E2TmxzYzhuazlUUmNGdENrS3QrQVUwMS83OEREWjZFWldpY1hEelFnPT0iLCJpYXQiOjE1NzQyMTI1NDYsImV4cCI6MTU3NDI5ODk0Nn0.HV_X5C-tLg1MKU9o9p4M5hXbgHDFY9El7j7V9WQ0378"
       }
     };
 
     const res = await axios.get(
-      'http://localhost:5000/api/tournaments/usertournament',
+      "http://localhost:5000/api/tournaments/usertournament",
       config
     );
 
@@ -41,6 +42,35 @@ export const setCurrentTournament = tournament => dispatch => {
   dispatch({
     type: SET_CURRENT_TOURNAMENT,
     payload: tournament
+  });
+};
+
+export const addTournament = tournament => async dispatch => {
+  setLoading();
+
+  const body = {
+    tournamentName: tournament.tournamentName,
+    tournamentType: tournament.tournamentType,
+    user: "5d8ad4d177c2385754673a87"
+  };
+
+  let config = {
+    headers: {
+      "auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5VS9CQ2l4QjRidmlmeGljcFhlZWgzc1NYb09QblV6ZmJQM3E2TmxzYzhuazlUUmNGdENrS3QrQVUwMS83OEREWjZFWldpY1hEelFnPT0iLCJpYXQiOjE1NzQyMTI1NDYsImV4cCI6MTU3NDI5ODk0Nn0.HV_X5C-tLg1MKU9o9p4M5hXbgHDFY9El7j7V9WQ0378"
+    }
+  };
+
+  const res = await axios.post(
+    "http://localhost:5000/api/tournaments/",
+    body,
+    config
+  );
+
+  const data = res.data;
+  dispatch({
+    type: ADD_TOURNAMENT,
+    payload: data
   });
 };
 
