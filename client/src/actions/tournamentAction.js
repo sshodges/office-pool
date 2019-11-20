@@ -13,12 +13,12 @@ export const getTournaments = () => async dispatch => {
     let config = {
       headers: {
         'auth-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5SEFPN3dyZVRiQTYxUGlxaUpyYzJ6UTg2L1JnN1JzOXlkM1AwL1ZROFdiSkxyN3RDWjhuWjJMNS84T2pBL29Dc1dTUGxsYWZuZXd3PT0iLCJpYXQiOjE1NzI0MTIxNzQsImV4cCI6MTU3MjQ5ODU3NH0.2V4SygLgFoxonB-SaaPQ-S708mVgHxVvyw6opN97k4M'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5ZlpyRzF6VHNneXpHY09YQU11SXN0TzZiVGg2RGp0cEVYWnlLOCtWbSt6bVViUE5wVG04RW8vdm5PMGltNnczcGZXOTludW9TMTVnPT0iLCJpYXQiOjE1NzQwNTM1MDksImV4cCI6MTU3NDEzOTkwOX0.-vFyqzHHbNUx1jmlNCWQEu5vrnTC1j0fwtCs5LDpwqc'
       }
     };
 
     const res = await axios.get(
-      'http://localhost:5000/api/tournaments',
+      'http://localhost:5000/api/tournaments/usertournament',
       config
     );
 
