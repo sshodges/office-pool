@@ -14,7 +14,7 @@ export const getTournaments = () => async dispatch => {
     let config = {
       headers: {
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5VS9CQ2l4QjRidmlmeGljcFhlZWgzc1NYb09QblV6ZmJQM3E2TmxzYzhuazlUUmNGdENrS3QrQVUwMS83OEREWjZFWldpY1hEelFnPT0iLCJpYXQiOjE1NzQyMTI1NDYsImV4cCI6MTU3NDI5ODk0Nn0.HV_X5C-tLg1MKU9o9p4M5hXbgHDFY9El7j7V9WQ0378"
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDEvQW5wZ3p3U2Q5MzZhOVRpeFdJZ1QrSXNYL2VHcmd1ODdhMHFBU2lZZjdVUFBPcXFUTDBLcFc5OWtuVmd3T2YrekJoL0dXNnlUekFBPT0iLCJpYXQiOjE1NzQ4MzEyMTksImV4cCI6MTU3NDkxNzYxOX0.mRcqEtykeUbdkDDB0h9H-HlENmgF2fBP1TrudYAnTaQ"
       }
     };
 
@@ -51,13 +51,13 @@ export const addTournament = tournament => async dispatch => {
   const body = {
     tournamentName: tournament.tournamentName,
     tournamentType: tournament.tournamentType,
-    user: "5d8ad4d177c2385754673a87"
+    user: "5d8c36e3075e6907bc9ee8a0"
   };
 
   let config = {
     headers: {
       "auth-token":
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDE5VS9CQ2l4QjRidmlmeGljcFhlZWgzc1NYb09QblV6ZmJQM3E2TmxzYzhuazlUUmNGdENrS3QrQVUwMS83OEREWjZFWldpY1hEelFnPT0iLCJpYXQiOjE1NzQyMTI1NDYsImV4cCI6MTU3NDI5ODk0Nn0.HV_X5C-tLg1MKU9o9p4M5hXbgHDFY9El7j7V9WQ0378"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IlUyRnNkR1ZrWDEvQW5wZ3p3U2Q5MzZhOVRpeFdJZ1QrSXNYL2VHcmd1ODdhMHFBU2lZZjdVUFBPcXFUTDBLcFc5OWtuVmd3T2YrekJoL0dXNnlUekFBPT0iLCJpYXQiOjE1NzQ4MzEyMTksImV4cCI6MTU3NDkxNzYxOX0.mRcqEtykeUbdkDDB0h9H-HlENmgF2fBP1TrudYAnTaQ"
     }
   };
 
@@ -67,7 +67,7 @@ export const addTournament = tournament => async dispatch => {
     config
   );
 
-  const data = res.data;
+  const data = res.data.savedTournament;
   dispatch({
     type: ADD_TOURNAMENT,
     payload: data
