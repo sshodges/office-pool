@@ -21,11 +21,11 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Login />
           <Navbar />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Login} />
+              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/login" component={Login} />
               <Route exact path="/seasons" component={Seasons} />
             </Switch>
             <AddTournamentModal />
